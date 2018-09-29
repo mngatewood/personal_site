@@ -1,3 +1,12 @@
 body {
-  background-color: blue;
+  font-family: Open Sans;
+  font-size: 20px;
+}
+
+.home-link {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  float: right;
+  margin: 6px;
 }

@@ -1,0 +1,101 @@
+<html>
+<head>
+  <title>Blog</title>
+  <link rel="stylesheet" href="/main.css" title="CSS" type="text/css" />
+</head>
+
+<body>
+  <header>
+    <h1>My First Dive Into Open-Source</h1>
+    <a href="/" class="home-link">Home</a>
+  </header>
+  <main>
+    <p>Being a first-time blogger can be an intimidating experience. Are my writing skills up to par? Can I create enough content 
+    to warrant a blog post? Is my story of interest to anyone else? This is part of a group
+    assignment for the Front End Engineering Program at Turing School of Software and Design. Another requirement? Contribute
+    to an open source project and have your changes approved and implemented. Maybe writing a blog post isn't so tough after
+    all.</p>
+    <p>The first thing to do was to become familiar with the project. My team was assigned a project on GitHub titled Refined
+    GitHub. After reading through the readme file, I learned that Refined GitHub's purpose was to enhance the user experience
+    on GitHub and add features via browser extensions for Chrome, Firefox, and Opera. The creator, Sindre Sorhus hopes that GitHub
+    will notice and implement some of the improvements provided by Refined GitHub. Here are a few examples of those features:</p>
+    <ul>
+      <li>The ability to mark issues and pull requests as unread</li>
+      <li>The option to wait for checks before merging a pull request</li>
+      <li>Clickable references to issues and pull requests</li>
+      <li>Links to an issue's closing commit or pull request</li>
+      <li>Reaction avatars showing who reacted to a comment next to each reaction</li>
+    </ul>
+    <p>With a basic understanding of the intent of the project, my team and I proceeded through
+    the installation steps provided by the readme file. Since the functionality of this project was neatly wrapped in a Chrome
+    extension, installation was a breeze. However, when I fired up the extension and logged into GitHub, it was not immediately
+    apparent that the extension was working. Refined GitHub does not replace the user experience on GitHub, it merely adds some
+    useful features. So to an untrained eye such as mine, the added features aren't so obvious. I referred back to the readme
+    to browse the list of features for comparison and sure enough, it was working perfectly.</p>
+    <p>After several minutes of tinkering and admiring my new power-user version of GitHub, it was time to download the repository and install the required developer
+    dependencies. Having never worked on a browser extension before, setup was a little outside the norm for me, but not nearly
+    as complicated as I imagined. After installing the required dependencies, we were advised to run "npm watch". A quick peek
+    at the package.json file showed that this command was running webpack to continually compile the build as you make changes
+    to the extension.</p>
+    <p>This is where things get a little interesting. The readme provides additional guidance for loading your
+    changes into a temporary extension using the browser's debugging tool. This involved turning off the original extension that
+    we had just installed and pointing the debugger to the manifest file that contains our new build. While the build was continuous
+    and automatic, it would still need to be manually refreshed in the debugger in order for changes to be reflected in the browser.</p>
+    <p>Now that we were up and running, it was time to find an issue to work on. The repo had 98 open issues at the time, so we
+    had plenty of options. We would initially filter the issues by the "good first issue" tag, which narrowed the list to 12
+    issues. From there, we ruled out any issues that had a pull request or was labelled "under discussion." This would get us
+    down to a handful of issues and it was time to start digging in.</p> 
+    <p>The first issue to catch my eye was labelled, "updateReleasesCount: Uncaught (in promise) TypeError: Cannot read property 'textContent' of null." Having spent the last eight weeks working with
+    promises under varying circumstances, I felt good about being able to resolve this issue. While we were able to identify
+    the cause of the problem, we quickly decided to table the issue in search of a problem that didn't involve cryptic (to us)
+    regex code.</p>
+    <p>The next issue we looked at involved hiding some unwanted activity alerts when a contributor edits wiki documents.
+    We looked at the source of these wiki comments and quickly agreed that without access to the GitHub HTML, this would likely
+    prove to be a bigger challenge than we were looking for.</p>
+    <p>Finally, we came across this issue: "Markdown rich diff tooltip
+    appears underneath diff settings bar." This issue was particularly inviting because of how well it was written. The author
+    provided steps to reproduce the issue, expected behavior, actual behavior, a screenshot of the issue, and the author's system
+    info (OS and browser versions). We were able to reproduce the issue in less than a minute and it was immediately apparent
+    that the solution would involve making some minor changes to CSS--something we all felt confident doing.</p>
+    <p>The issue was related
+    to a tooltip that displays on hover over a couple buttons. Under very specific circumstances, the tooltip was being covered
+    by a sticky header. Our proposed solution was to add a hover pseudo-class on each of the two buttons, temporarily increasing
+    their z-index. It was important to use the hover state. If we had simply increased the z-index of the button class, the buttons
+    would have also been visible as it should have scrolled under a sticky header (while its container was hidden under the sticky
+    header). There was a conversation about potentially moving the tooltip to appear below the button (on its Y axis), but it
+    was unclear if the debate had been resolved. Being the new kids on the block, we chose to stay out of it and leave the position
+    of the tooltip unchanged.</p>
+    <p>We also had a proposed change outside of the scope of the issue. Next to the buttons in question,
+    there was another button with a tooltip. This particular tooltip was unaffected by our issue because its Y-position was below
+    the button. Our proposal would be to move this tooltip above its button in order to remain consistent across the series of
+    buttons. We didn't want to get ahead of ourselves, so we stashed this change in a separate branch. If our original changes
+    got merged, we would pitch this change separately.</p>
+    <p>One mistake that was made was that we cloned the original repository.
+    This creates a local working copy of the project. However, because we didn't have the appropriate permissions for this repository
+    to push changes to GitHub, we weren't able to propose our changes. So instead, we forked the repository. This method creates
+    a copy of the repository in one of our personal GitHub accounts. This way, we can push changes to a branch on our local account
+    until the changes are ready to be proposed. From there, it was just a matter of doing a pull request to the original repository.</p>
+    <p>And then we waited.</p>
+    <p>After a few days, the owner of the project responded to our pull request with some positive feedback
+    and suggested that we wait until others in the community had an opportunity to review the proposed change.</p>
+    <p>And then we waited some more.</p>
+    <p>About a week later, we got another response. He was able to identify an edge case where part of the tooltip would
+    not be visible under a very specific circumstance and indicated that the pull request would need to be revised. In response
+    to his rejection, we proposed that the tooltip be moved below the element in this particular case. He accepted the proposal
+    and we went back to work.</p>
+    <p>We would have to submit our assignment before we officially completed the process. So we didn't
+    meet our objective of getting the pull request approved in time. However, we learned a lot in the process.</p>
+    <p>Even a fresh junior developer--not even out of school--can find a way to contribute to an open-source project. I felt with all the developers
+    out there with more technical knowledge and experience, it would be difficult to find an issue that I was capable of resolving.
+    The truth is, there are plenty of contributors that could have resolved this issue in much less time. But those developers
+    aren't necessarily looking to spend their valuable time making a minor adjustment to a tooltip.</p>
+    <p>There are a lot of opinions
+    when it comes to how an application should behave. Even the simple matter of how to display a tooltip can raise a heated
+    debate. Go into this process with patience, because it's not likely to happen overnight. When entering a new project, keep
+    in mind that you are a guest. Be respectful and listen to what others have to say. Everyone in the community has a common
+    goal: to make the project better. With the right attitude, empathy, and perseverance, anyone can dive into an open-source
+    project and make a meaningful contribution.</p>
+  </main>
+</body>
+
+</html>
